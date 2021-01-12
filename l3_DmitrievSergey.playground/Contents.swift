@@ -331,3 +331,5 @@ car1.Action(en: .turnOffEngine)
 car2.Action(en: .turnOffEngine)
 car2.Action(en: .turnOnEngine)
 car2.Action(en: .turnOnEngine)
+
+car1.Action(en: .closeWindow)
