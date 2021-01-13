@@ -22,7 +22,7 @@ enum TrunkState {
 
 enum ActionWCar {
     
-    case turnOffEngine, turnOnEngine, openWindow, closeWindow, putInTrunkValue, unloadFromTrunkValue, openTrunc, closeTrunk
+    case turnOffEngine, turnOnEngine, openWindow, closeWindow, putInTrunkValue(value: Double), unloadFromTrunkValue(value: Double), openTrunc, closeTrunk
     
 }
 
@@ -54,7 +54,7 @@ struct SportCar{
     
     
     
-    mutating func Action (en: ActionWCar, let valueOfGoods: Double = 0) {
+    mutating func Action (en: ActionWCar) {
         
         switch en {
         
@@ -126,7 +126,7 @@ struct SportCar{
                 print("Багажник закрыт")
                 
             }
-        case .putInTrunkValue:
+        case let .putInTrunkValue(valueOfGoods):
             if valueTrunk == 0 {
                
                 print("Опция багажника не предоставлена")
@@ -151,12 +151,12 @@ struct SportCar{
                 
             }
             
-        case .unloadFromTrunkValue:
+        case let .unloadFromTrunkValue(valueOfGoods):
             if trunkState == .isOpen {
                 
                 valueLoadTrunk -= valueOfGoods
                 
-                print ("Груз извлечен из багажника. ")
+                print ("Груз извлечен из багажника. В багажнике осталось \(valueLoadTrunk)")
                 
             } else {
                 
@@ -199,7 +199,7 @@ struct TrunkCar{
     
     
     
-    mutating func Action (en: ActionWCar, let valueOfGoods: Double = 0) {
+    mutating func Action (en: ActionWCar) {
         
         switch en {
         
@@ -273,7 +273,7 @@ struct TrunkCar{
                 print("Багажник грузовика закрыт")
                 
             }
-        case .putInTrunkValue:
+        case let .putInTrunkValue(valueOfGoods):
             if valueTrunk == 0 {
                
                 print("Опция багажника для данной модели грузовика не предоставлена")
@@ -298,7 +298,7 @@ struct TrunkCar{
                 
             }
             
-        case .unloadFromTrunkValue:
+        case let .unloadFromTrunkValue(valueOfGoods):
             if trunkState == .isOpen {
                 
                 valueLoadTrunk -= valueOfGoods
@@ -322,7 +322,8 @@ var car1 = SportCar(carModel: "Honda", yearProduction: "2000", valueTrunk: 50, e
 
 var car2 = TrunkCar(carModel: "Volvo", yearProduction: "2015", valueTrunk: 1000)
 car1.Action(en: .openTrunc)
-car1.Action(en: .putInTrunkValue, let: 25)
+car1.Action(en: .putInTrunkValue(value: 25))
+car1.Action(en: .unloadFromTrunkValue(value: 10))
 car1.Action(en: .turnOnEngine)
 print("\(car1.engineState)")
 
